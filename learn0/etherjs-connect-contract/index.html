@@ -44,7 +44,7 @@
     console.log("parseEther：", howmuch);
 
     // You can also use an ENS name for the contract address
-    const myTokenAddress = "0xA4d8fE568D9d1C56D535388f160dc96854858bf1";
+    const myTokenAddress = "0xa7d887982d4817590B170350d478875f7D0B2fb3";
 
     // The Contract object
     const myTokenContract = new ethers.Contract(
@@ -57,8 +57,8 @@
 
     console.log("myTokenContract:", myTokenContract);
     const transaction = await myTokenWithSigner.mint(
-      "0x72283c6BFf2792755dCf800FCf336c7a5807dc87",
-      1000
+      "0xd332dca2b5681cc5e7e69c44b00182eba2a6dcf5",
+      ethers.BigNumber.from("10000000000000000000")
     );
     console.log("transaction:", transaction);
   </script>
