@@ -1,10 +1,28 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "preserve",
     "noEmit": true,
     "incremental": true,
-    "module": "esnext"
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "src"]
+  "include": [
+    "next-env.d.ts",
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
