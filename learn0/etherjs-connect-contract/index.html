@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STE WEB3</title>
+  </head>
+  <body></body>
+  <script
+    src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+    type="application/javascript"
+  ></script>
+  <script src="./abi.js"></script>
+  <script type="module">
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send("eth_requestAccounts", []);
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner();
+    console.log("signer", signer);
+
+    // Look up the current block number
+    const bn = await provider.getBlockNumber();
+    console.log("block number:", bn);
+
+    // Get the balance of an account (by address or ENS name, if supported by network)
+    const balance = await provider.getBalance("ethers.eth");
+
+    // Often you need to format the output to something more user-friendly,
+    // such as in ether (instead of wei)
+    const balanceF = ethers.utils.formatEther(balance);
+
+    console.log("balance:", balance);
+    console.log("balance format:", balanceF);
+
+    // If a user enters a string in an input field, you may need
+    // to convert it from ether (as a string) to wei (as a BigNumber)
+    const howmuch = ethers.utils.parseEther("1.0");
+    console.log("parseEther：", howmuch);
+
+    // You can also use an ENS name for the contract address
+    const myTokenAddress = "0xA4d8fE568D9d1C56D535388f160dc96854858bf1";
+
+    // The Contract object
+    const myTokenContract = new ethers.Contract(
+      myTokenAddress,
+      MY_TOKEN_ABI,
+      provider
+    );
+
+    const myTokenWithSigner = myTokenContract.connect(signer);
+
+    console.log("myTokenContract:", myTokenContract);
+    const transaction = await myTokenWithSigner.mint(
+      "0x72283c6BFf2792755dCf800FCf336c7a5807dc87",
+      1000
+    );
+    console.log("transaction:", transaction);
+  </script>
+</html>
